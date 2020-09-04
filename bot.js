@@ -1,10 +1,12 @@
 const Discord = require('discord.js');
 const Equation = require('equations').default; 
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 
 const client = new Discord.Client();
 
 client.login(process.env.BOT_TOKEN);
-
 client.on('ready', async () => {
     console.log(`Logged in successfully as bot!`);
     });
