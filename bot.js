@@ -17,7 +17,7 @@ client.on('message', (msg) => {
 		const toSolve = msg.content.slice(flag.length, msg.content.length);
 		try {
 			const solved = Equation.solve(toSolve);
-			msg.reply(`${toSolve} = ${solved}`);
+			msg.reply(`${toSolve} = ${solved} DB`);
 		}
 		catch (err) {
 			msg.reply(`Could not solve the equation '${toSolve}'.`);
