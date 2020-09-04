@@ -2,12 +2,13 @@ const Discord = require('discord.js');
 const Equation = require('equations').default; 
 
 const client = new Discord.Client();
-client.login("NzUxNTI3ODYxOTQ4NjQ1NTA3.X1KY3Q.RLpMdfJJJzwfMFnvRDlKXKaHz6M");
+
+client.login(process.env.BOT_TOKEN);
 
 client.on('ready', async () => {
     console.log(`Logged in successfully as bot!`);
     });
-    
+
 client.on('message', (msg) => {
     msg.content = msg.content.trim(); // remove extra whitespace
     const flag = '!solve ';
