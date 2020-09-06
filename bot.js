@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
 const Mongo = require('mongodb');
 const MongoClient = Mongo.MongoClient;
 const ObjectID = Mongo.ObjectID;
-const uri = `mongodb+srv://treehouseManager:${process.env.DB_PASSWORD}@cluster0.ovkum.mongodb.net/ClubhouseBot?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.gyfdt.mongodb.net/ClubhouseBot?retryWrites=true&w=majority`;
 
 async function increase_counter(user_id) {
 	const client = await MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => { console.log(err); });
