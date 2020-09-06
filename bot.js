@@ -59,7 +59,7 @@ client.on('message', (msg) => {
 	const flag_add = '!add';
 	if (msg.content.startsWith(flag_add)) {
 
-		const user_id = client.user.id;
+		const user_id = msg.author.id;
 		increase_counter(user_id).then(
 			(new_number) => msg.reply(`Daddy you have poked me ${new_number} time(s)`),
 			(err) => msg.reply(err));
