@@ -3,7 +3,6 @@ if (process.env.NODE_ENV === undefined || process.env.NODE_ENV !== 'production')
 }
 const Mongo = require('mongodb');
 const MongoClient = Mongo.MongoClient;
-const ObjectID = Mongo.ObjectID;
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.gyfdt.mongodb.net/ClubhouseBot?retryWrites=true&w=majority`;
 
 function createConnection() {
@@ -15,7 +14,7 @@ function getCollection(client) {
 }
 
 function createUserQuery(user_id) {
-	return { _id: ObjectID('000000' + user_id) };
+	return { _id: user_id };
 }
 
 module.exports.queryDB = async (user_id) => {
@@ -32,16 +31,12 @@ module.exports.queryDB = async (user_id) => {
 		// If the query does not yield any results, we run this
 		if (res === null) {
 			// Create a new entry in the DB
-			const doc = { _id: ObjectID('000000' + user_id), treats: 0 };
+			const doc = { _id: user_id, treats: 0 };
 			// Actually add the entry to the DB
 			await collection.insertOne(doc);
 			res = await collection.findOne(query);
 		}
 		return res;
-	}
-	// Log any errors that might happen
-	catch (err) {
-		console.log(err);
 	}
 	// We want to make sure the connection is closed, so do this
 	finally {
@@ -59,9 +54,6 @@ module.exports.updateDB = async (user_id, update) => {
 		const query = createUserQuery(user_id);
 		// Update the database
 		await collection.updateOne(query, { $set: update });
-	}
-	catch (err) {
-		console.log(err);
 	}
 	finally {
 		client.close();
