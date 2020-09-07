@@ -1,6 +1,7 @@
 const { Command } = require('discord.js-commando');
+const { queryDB } = require('../../DB Logic/dbaccessor');
 
-module.exports = class MeowCommand extends Command {
+module.exports = class BalanceCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'balance',
@@ -11,7 +12,8 @@ module.exports = class MeowCommand extends Command {
 		});
 	}
 
-	run(message) {
-		return message.say('I don\'t fucking know!');
+	async run(message) {
+		const user = await queryDB(message.author.id);
+		return message.say(`You have ${user.treats} treats!`);
 	}
 };

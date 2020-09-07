@@ -21,7 +21,7 @@ async function increase_counter(user_id) {
 		}
 		else {
 			counter = res.counter + 1;
-			const doc = { $set: { counter: counter } };
+			const doc = { $set: { counter: (res.counter + 1) } };
 			await collection.updateOne(query, doc);
 		}
 
@@ -39,7 +39,7 @@ const client = new Discord.Client();
 
 client.login(process.env.BOT_TOKEN);
 client.on('ready', async () => {
-	console.log('Logged in successfully as bot!');
+	console.log(`Logged in successfully as ${client.user.username}!`);
 });
 
 client.on('message', (msg) => {
