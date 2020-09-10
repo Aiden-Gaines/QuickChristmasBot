@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando');
-const { queryDB, updateDB } = require('../../DB Logic/dbaccessor');
+const { collections, updateDB } = require('../../DB Logic/dbaccessor');
 
 module.exports = class GiveTreatsCommand extends Command {
 	constructor(client) {
@@ -9,14 +9,25 @@ module.exports = class GiveTreatsCommand extends Command {
 			group: 'botowner',
 			memberName: 'givetreats',
 			description: 'Give a user treats.',
+			args: [
+				{
+					key: 'member',
+					prompt: 'Who would you like to give the treats to?',
+					type: 'member',
+				},
+				{
+					key: 'amount',
+					prompt: 'How many treats would you like to give?',
+					type: 'integer',
+				},
+			],
 		});
 	}
 
-	async run(message) {
-		const userID = message.author.id;
-		const user = await queryDB(userID);
-		const update = { treats: user.treats + 1 };
-		await updateDB(userID, update);
-		return message.say('You have been given 1 treat.');
+	async run(message, { member, amount }) {
+		const userID = member.id;
+		const update = { $inc: { treats: amount } };
+		await updateDB(userID, collections.users, update);
+		return message.say(`${member.displayName}, you have been given ${amount} treats.`);
 	}
 };

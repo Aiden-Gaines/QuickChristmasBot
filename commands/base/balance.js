@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando');
-const { queryDB } = require('../../DB Logic/dbaccessor');
+const { collections, queryDB } = require('../../DB Logic/dbaccessor');
 
 module.exports = class BalanceCommand extends Command {
 	constructor(client) {
@@ -13,7 +13,7 @@ module.exports = class BalanceCommand extends Command {
 	}
 
 	async run(message) {
-		const user = await queryDB(message.author.id);
-		return message.say(`You have ${user.treats} treats!`);
+		const user = await queryDB(message.author.id, collections.users);
+		return message.say(`${message.member.displayName}, you have ${user.treats} treats!`);
 	}
 };
