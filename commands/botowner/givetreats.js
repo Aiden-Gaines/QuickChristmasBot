@@ -9,9 +9,10 @@ module.exports = class GiveTreatsCommand extends Command {
 			group: 'botowner',
 			memberName: 'givetreats',
 			description: 'Give a user treats.',
+			guildOnly: true,
 			args: [
 				{
-					key: 'member',
+					key: 'targetMember',
 					prompt: 'Who would you like to give the treats to?',
 					type: 'member',
 				},
@@ -24,10 +25,10 @@ module.exports = class GiveTreatsCommand extends Command {
 		});
 	}
 
-	async run(message, { member, amount }) {
-		const userID = member.id;
+	async run(message, { targetMember, amount }) {
+		const userID = targetMember.id;
 		const update = { $inc: { treats: amount } };
 		await updateDB(userID, collections.users, update);
-		return message.say(`${member.displayName}, you have been given ${amount} treats.`);
+		return message.say(`${targetMember.displayName}, you have been given ${amount} treats.`);
 	}
 };
