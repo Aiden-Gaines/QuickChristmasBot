@@ -14,6 +14,6 @@ module.exports = class BalanceCommand extends Command {
 
 	async run(message) {
 		const user = await queryDB(message.author.id, collections.users);
-		return message.say(`${message.member.displayName}, you have ${user.treats} treats!`);
+		return message.say(`${message.authorDisplayName()}, you have ${user.treats} treats!`);
 	}
 };
