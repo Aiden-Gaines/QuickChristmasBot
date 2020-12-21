@@ -8,7 +8,6 @@ if (process.env.NODE_ENV === undefined || process.env.NODE_ENV !== 'production')
 	// process.env.BOT_TOKEN = process.env.TEST_BOT_TOKEN;
 }
 
-// For some reason () => doesnt seem to work here?
 // Doing this just makes life easier in the commands, for getting display names.
 Message.prototype.authorDisplayName = function() {
 	return (this.member === null) ? this.author.username : this.member.displayName;
@@ -16,7 +15,7 @@ Message.prototype.authorDisplayName = function() {
 
 // Create the client object and set bot settings
 const client = new CommandoClient({
-	commandPrefix: 'b$',
+	commandPrefix: 'WS',
 	owner: '227997724618915842',
 	messageCacheLifetime: 300,
 	messageSweepInterval: 300,
@@ -24,7 +23,7 @@ const client = new CommandoClient({
 
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
-	client.user.setActivity('with rainbows.');
+	client.user.setActivity('with reindeer.');
 });
 
 client.on('error', console.error);

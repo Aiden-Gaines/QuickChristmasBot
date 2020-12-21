@@ -12,7 +12,7 @@ async function getOrCreateUser(user_id, collection, query) {
 	// If the query does not yield any results, we run this
 	if (res === null) {
 		// Create a new entry in the DB
-		const doc = { _id: user_id, treats: 0 };
+		const doc = { _id: user_id, entries: 1 };
 		// Actually add the entry to the DB
 		await collection.insertOne(doc);
 		res = await collection.findOne(query);
