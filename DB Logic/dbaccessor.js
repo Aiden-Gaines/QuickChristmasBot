@@ -34,8 +34,7 @@ function createUserQuery(user_id) {
 
 
 module.exports.collections = {
-	users: 'users',
-	test_collection_2: 'test_collection_2',
+	christmas: 'christmasCollection',
 };
 
 module.exports.queryDB = async (user_id, collectionString) => {
