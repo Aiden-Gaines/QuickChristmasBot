@@ -14,6 +14,6 @@ module.exports = class EntriesCommand extends Command {
 
 	async run(message) {
 		const user = await queryDB(message.author.id, collections.christmas);
-		return message.say(`${message.authorDisplayName()}, you have ${user.entries} entries!`);
+		return message.say(`${message.authorDisplayName()}, you have ${Math.round(user.entries / 10)} entries!`);
 	}
 };

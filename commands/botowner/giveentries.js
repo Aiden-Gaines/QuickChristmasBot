@@ -10,6 +10,7 @@ module.exports = class GiveEntriesCommand extends Command {
 			memberName: 'giveentries',
 			description: 'Give a user more entries.',
 			guildOnly: true,
+			ownerOnly: true,
 			args: [
 				{
 					key: 'targetMember',
@@ -26,7 +27,7 @@ module.exports = class GiveEntriesCommand extends Command {
 	}
 
 	async run(message, { targetMember, amount }) {
-		const update = { $inc: { entries: amount } };
+		const update = { $inc: { entries: amount * 10 } };
 		await updateDB(targetMember.id, collections.christmas, update);
 		return message.say(`${targetMember.displayName}, you have been given ${amount} more entries!`);
 	}
