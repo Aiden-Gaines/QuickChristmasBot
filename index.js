@@ -7,7 +7,6 @@ const { collections, queryDB, updateDB } = require('./DB Logic/dbaccessor');
 // Load environment variables. Done differently for production (heroku) and local builds
 if (process.env.NODE_ENV === undefined || process.env.NODE_ENV !== 'production') {
 	require('dotenv').config();
-	// process.env.BOT_TOKEN = process.env.TEST_BOT_TOKEN;
 }
 
 // Doing this just makes life easier in the commands, for getting display names.
@@ -22,18 +21,18 @@ const client = new CommandoClient({
 	messageCacheLifetime: 300,
 	messageSweepInterval: 300,
 });
-// const guildID = '506989850117799946';
-// const sfwGenID = '506989850117799948';
-// const nsfwGenID = '607894526383620107';
-// const spamChanID = '688191579676213344';
+const guildID = '506989850117799946';
+const sfwGenID = '506989850117799948';
+const nsfwGenID = '607894526383620107';
+const spamChanID = '688191579676213344';
 const talkingEntryCap = 200;
 const santaDropEntryCap = 150;
 
-
-const guildID = '488896298657775618	';
-const sfwGenID = '496444873558327308';
-const nsfwGenID = '496445485251428384';
-const spamChanID = '708618292486471761';
+// Test channels
+// const guildID = '488896298657775618	';
+// const sfwGenID = '496444873558327308';
+// const nsfwGenID = '496445485251428384';
+// const spamChanID = '708618292486471761';
 
 client.setInterval(async () => {
 	// Only do this 60% of the time
