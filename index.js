@@ -1,7 +1,6 @@
 // Imports
 const path = require('path');
-const { Message } = require('discord.js');
-const { CommandoClient } = require('discord.js-commando');
+const { CommandoClient, CommandoMessage } = require('discord.js-commando');
 const { collections, queryDB, updateDB } = require('./DB Logic/dbaccessor');
 
 // Load environment variables. Done differently for production (heroku) and local builds
@@ -10,7 +9,7 @@ if (process.env.NODE_ENV === undefined || process.env.NODE_ENV !== 'production')
 }
 
 // Doing this just makes life easier in the commands, for getting display names.
-Message.prototype.authorDisplayName = function() {
+CommandoMessage.prototype.authorDisplayName = function() {
 	return (this.member === null) ? this.author.username : this.member.displayName;
 };
 
@@ -25,6 +24,7 @@ const guildID = '506989850117799946';
 const sfwGenID = '506989850117799948';
 const nsfwGenID = '607894526383620107';
 const spamChanID = '688191579676213344';
+// Don't forget about the ones in entries.js
 const talkingEntryCap = 200;
 const santaDropEntryCap = 150;
 
@@ -36,7 +36,7 @@ const santaDropEntryCap = 150;
 
 client.setInterval(async () => {
 	// Only do this 60% of the time
-	if (Math.random() > 0.4) {
+	if (Math.random() > 0.3) {
 		// Get the guild object fresh from discord (or the cache)
 		const guildObj = await client.guilds.fetch(guildID);
 
@@ -70,8 +70,6 @@ client.setInterval(async () => {
 					// Query DB for user data
 					const userData = await queryDB(userID, collections.christmas);
 
-					console.log(userData);
-
 					// Make sure they are not at the cap, or at 0
 					if (userData.entriesFromDrops < santaDropEntryCap || userData.entriesFromDrops == undefined) {
 						const update = { $inc: { entries: 10, entriesFromDrops: 10 } };
@@ -83,7 +81,7 @@ client.setInterval(async () => {
 			}
 		}
 	}
-}, 500000);
+}, 600000);
 // 500000
 
 client.once('ready', () => {
